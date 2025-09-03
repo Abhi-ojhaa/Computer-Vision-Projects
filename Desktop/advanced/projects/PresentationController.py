@@ -1,7 +1,7 @@
 import cv2
 import time
-from Handtracking import HandTrackingModule as htm
-import pyautogui # Our "keyboard remote control"
+from ailib import HandTrackingModule as htm
+import pyautogui # keyboard remote control
 
 ################################
 # Setup
@@ -12,10 +12,7 @@ cap.set(3, wCam)
 cap.set(4, hCam)
 
 pTime = 0
-# NOTE: Make sure your HandTrackingModule.py is in the same folder!
 detector = htm.handDetector(detectionCon=0.8, maxHands=1)
-
-# A simple cooldown timer to prevent multiple commands at once
 gesture_cooldown = 0
 COOLDOWN_FRAMES = 30 # Wait 30 frames before allowing a new gesture
 
@@ -60,7 +57,6 @@ while True:
             x1, y1 = lmList[8][1:] # Get index finger tip
             cv2.circle(img, (x1, y1), 15, (0, 0, 255), cv2.FILLED)
 
-    # --- FPS Counter ---
     cTime = time.time()
     fps = 1 / (cTime - pTime) if (cTime - pTime) > 0 else 0
     pTime = cTime
